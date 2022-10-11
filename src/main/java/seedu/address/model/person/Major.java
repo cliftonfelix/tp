@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents Person's major in the address book.
+ * Represents Record's major in the address book.
  * Guarantees: immutable; is always valid
  */
 public class Major {

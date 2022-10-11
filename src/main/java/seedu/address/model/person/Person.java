@@ -10,7 +10,6 @@ import java.util.Set;
 import seedu.address.model.job.Id;
 import seedu.address.model.job.Job;
 import seedu.address.model.job.Title;
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
@@ -30,8 +29,6 @@ public class Person {
     private final Cap cap;
     private final University university;
     private final Major major;
-    private final Job job;
-    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
@@ -42,18 +39,14 @@ public class Person {
                   GraduationDate graduationDate,
                   Cap cap,
                   University university,
-                  Major major,
-                  Id id,
-                  Title title,
-                  Set<Tag> tags) {
+                  Major major) {
         requireAllNonNull(name, phone, email,
-            address,
-            gender,
-            graduationDate,
-            cap,
-            university,
-            major,
-            tags);
+                address,
+                gender,
+                graduationDate,
+                cap,
+                university,
+                major);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -63,8 +56,6 @@ public class Person {
         this.cap = cap;
         this.university = university;
         this.major = major;
-        this.job = new Job(id, title);
-        this.tags.addAll(tags);
     }
 
     public Name getName() {
@@ -103,18 +94,6 @@ public class Person {
         return major;
     }
 
-    public Job getJob() {
-        return job;
-    }
-
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
-
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
@@ -151,9 +130,7 @@ public class Person {
                 && otherPerson.getGraduationDate().equals(getGraduationDate())
                 && otherPerson.getCap().equals(getCap())
                 && otherPerson.getUniversity().equals(getUniversity())
-                && otherPerson.getMajor().equals(getMajor())
-                && otherPerson.getJob().equals(getJob())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getMajor().equals(getMajor());
     }
 
     @Override
@@ -164,9 +141,7 @@ public class Person {
                 graduationDate,
                 cap,
                 university,
-                major,
-                job,
-                tags);
+                major);
     }
 
     @Override
@@ -188,15 +163,8 @@ public class Person {
                 .append("; University: ")
                 .append(getUniversity())
                 .append("; Major: ")
-                .append(getMajor())
-                .append("; Job ID: ")
-                .append(getJob());
+                .append(getMajor());
 
-        Set<Tag> tags = getTags();
-        if (!tags.isEmpty()) {
-            builder.append("; Tags: ");
-            tags.forEach(builder::append);
-        }
         return builder.toString();
     }
 

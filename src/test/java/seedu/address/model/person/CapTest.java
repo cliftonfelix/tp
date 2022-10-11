@@ -1,9 +1,10 @@
-package seedu.address.model.person;
+package seedu.address.model.record;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import seedu.address.model.person.Cap;
 
 class CapTest {
     // null parameters of Cap() will be tested upon parsing Cap values, as double cannot be null.

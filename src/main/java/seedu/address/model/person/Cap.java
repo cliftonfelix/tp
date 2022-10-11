@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's CAP (Cumulative Average Point) in the address book.
+ * Represents a Record's CAP (Cumulative Average Point) in the address book.
  * Guarantees: immutable, is valid as declared in {@link #isValidCap(double, double)}
  */
 public class Cap {

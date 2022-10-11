@@ -12,16 +12,16 @@ import seedu.address.model.person.Gender;
 import seedu.address.model.person.GraduationDate;
 import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.address.model.record.Record;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.University;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Record objects.
  */
-public class PersonBuilder {
+public class RecordBuilder {
 
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
@@ -50,9 +50,9 @@ public class PersonBuilder {
     private Set<Tag> tags;
 
     /**
-     * Creates a {@code PersonBuilder} with the default details.
+     * Creates a {@code RecordBuilder} with the default details.
      */
-    public PersonBuilder() {
+    public RecordBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
@@ -68,124 +68,124 @@ public class PersonBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the RecordBuilder with the data of {@code recordToCopy}.
      */
-    public PersonBuilder(Person personToCopy) {
-        name = personToCopy.getName();
-        phone = personToCopy.getPhone();
-        email = personToCopy.getEmail();
-        address = personToCopy.getAddress();
-        gender = personToCopy.getGender();
-        graduationDate = personToCopy.getGraduationDate();
-        cap = personToCopy.getCap();
-        university = personToCopy.getUniversity();
-        major = personToCopy.getMajor();
-        id = personToCopy.getJob().getId();
-        title = personToCopy.getJob().getTitle();
-        tags = new HashSet<>(personToCopy.getTags());
+    public RecordBuilder(Record recordToCopy) {
+        name = recordToCopy.getPerson().getName();
+        phone = recordToCopy.getPerson().getPhone();
+        email = recordToCopy.getPerson().getEmail();
+        address = recordToCopy.getPerson().getAddress();
+        gender = recordToCopy.getPerson().getGender();
+        graduationDate = recordToCopy.getPerson().getGraduationDate();
+        cap = recordToCopy.getPerson().getCap();
+        university = recordToCopy.getPerson().getUniversity();
+        major = recordToCopy.getPerson().getMajor();
+        id = recordToCopy.getJob().getId();
+        title = recordToCopy.getJob().getTitle();
+        tags = new HashSet<>(recordToCopy.getTags());
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code Record} that we are building.
      */
-    public PersonBuilder withName(String name) {
+    public RecordBuilder withName(String name) {
         this.name = new Name(name);
         return this;
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Record} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public RecordBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
     /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
+     * Sets the {@code Address} of the {@code Record} that we are building.
      */
-    public PersonBuilder withAddress(String address) {
+    public RecordBuilder withAddress(String address) {
         this.address = new Address(address);
         return this;
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
+     * Sets the {@code Phone} of the {@code Record} that we are building.
      */
-    public PersonBuilder withPhone(String phone) {
+    public RecordBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
         return this;
     }
 
     /**
-     * Sets the {@code Email} of the {@code Person} that we are building.
+     * Sets the {@code Email} of the {@code Record} that we are building.
      */
-    public PersonBuilder withEmail(String email) {
+    public RecordBuilder withEmail(String email) {
         this.email = new Email(email);
         return this;
     }
 
     /**
-     * Sets the {@code Gender} of the {@code Person} that we are building.
+     * Sets the {@code Gender} of the {@code Record} that we are building.
      */
-    public PersonBuilder withGender(String gender) {
+    public RecordBuilder withGender(String gender) {
         this.gender = new Gender(gender);
         return this;
     }
 
     /**
-     * Sets the {@code Cap} of the {@code Person} that we are building.
+     * Sets the {@code Cap} of the {@code Record} that we are building.
      */
-    public PersonBuilder withCap(double capValue, double maximumValue) {
+    public RecordBuilder withCap(double capValue, double maximumValue) {
         this.cap = new Cap(capValue, maximumValue);
         return this;
     }
 
     /**
-     * Sets the {@code GraduationDate} of the {@code Person} that we are building.
+     * Sets the {@code GraduationDate} of the {@code Record} that we are building.
      */
-    public PersonBuilder withGraduationDate(String graduationDate) {
+    public RecordBuilder withGraduationDate(String graduationDate) {
         this.graduationDate = new GraduationDate(graduationDate);
         return this;
     }
 
     /**
-     * Sets the {@code University} of the {@code Person} that we are building.
+     * Sets the {@code University} of the {@code Record} that we are building.
      */
-    public PersonBuilder withUniversity(String university) {
+    public RecordBuilder withUniversity(String university) {
         this.university = new University(university);
         return this;
     }
 
     /**
-     * Sets the {@code Major} of the {@code Person} that we are building.
+     * Sets the {@code Major} of the {@code Record} that we are building.
      */
-    public PersonBuilder withMajor(String major) {
+    public RecordBuilder withMajor(String major) {
         this.major = new Major(major);
         return this;
     }
 
     /**
-     * Sets the {@code Id} of the {@code Person} that we are building.
+     * Sets the {@code Id} of the {@code Record} that we are building.
      */
-    public PersonBuilder withId(String id) {
+    public RecordBuilder withId(String id) {
         this.id = new Id(id);
         return this;
     }
 
     /**
-     * Sets the {@code Title} of the {@code Person} that we are building.
+     * Sets the {@code Title} of the {@code Record} that we are building.
      */
-    public PersonBuilder withTitle(String title) {
+    public RecordBuilder withTitle(String title) {
         this.title = new Title(title);
         return this;
     }
 
     /**
-     * Builds the {@code Person} that we are building.
+     * Builds the {@code Record} that we are building.
      */
-    public Person build() {
-        return new Person(name, phone, email,
+    public Record build() {
+        return new Record(name, phone, email,
                 address,
                 gender,
                 graduationDate,

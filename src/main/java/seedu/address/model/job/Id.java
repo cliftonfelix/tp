@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Job ID the Person applied to in the address book.
+ * Represents a Job ID the Record applied to in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidId(String)}
  */
 public class Id {

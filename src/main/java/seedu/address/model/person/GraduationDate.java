@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents the Graduation Date of a Person in the address book, as combination of a Month and Year
+ * Represents the Graduation Date of a Record in the address book, as combination of a Month and Year
  * Guarantees: immutable; is valid as declared in {@link #isValidGraduationDate(String)}
  */
 public class GraduationDate {

@@ -20,15 +20,15 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_UNIVERSITY_BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.logic.commands.EditCommand.EditRecordDescriptor;
+import seedu.address.testutil.EditRecordDescriptorBuilder;
 
-public class EditPersonDescriptorTest {
+public class EditRecordDescriptorTest {
 
     @Test
     public void equals() {
         // same values -> returns true
-        EditPersonDescriptor descriptorWithSameValues = new EditPersonDescriptor(DESC_AMY);
+        EditRecordDescriptor descriptorWithSameValues = new EditRecordDescriptor(DESC_AMY);
         assertTrue(DESC_AMY.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -44,52 +44,52 @@ public class EditPersonDescriptorTest {
         assertFalse(DESC_AMY.equals(DESC_BOB));
 
         // different name -> returns false
-        EditPersonDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
+        EditRecordDescriptor editedAmy = new EditRecordDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different phone -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withPhone(VALID_PHONE_BOB).build();
+        editedAmy = new EditRecordDescriptorBuilder(DESC_AMY).withPhone(VALID_PHONE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different email -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withEmail(VALID_EMAIL_BOB).build();
+        editedAmy = new EditRecordDescriptorBuilder(DESC_AMY).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different address -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withAddress(VALID_ADDRESS_BOB).build();
+        editedAmy = new EditRecordDescriptorBuilder(DESC_AMY).withAddress(VALID_ADDRESS_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different gender -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withGender(VALID_GENDER_BOB).build();
+        editedAmy = new EditRecordDescriptorBuilder(DESC_AMY).withGender(VALID_GENDER_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different graduationDate -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withGraduationDate(VALID_GRADUATION_DATE_BOB).build();
+        editedAmy = new EditRecordDescriptorBuilder(DESC_AMY).withGraduationDate(VALID_GRADUATION_DATE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different CAP -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY)
+        editedAmy = new EditRecordDescriptorBuilder(DESC_AMY)
                 .withCap(VALID_CAP_VALUE_BOB, VALID_MAXIMUM_CAP_VALUE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different university -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withUniversity(VALID_UNIVERSITY_BOB).build();
+        editedAmy = new EditRecordDescriptorBuilder(DESC_AMY).withUniversity(VALID_UNIVERSITY_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different major -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withMajor(VALID_MAJOR_BOB).build();
+        editedAmy = new EditRecordDescriptorBuilder(DESC_AMY).withMajor(VALID_MAJOR_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different job id -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withId(VALID_JOB_ID_BOB).build();
+        editedAmy = new EditRecordDescriptorBuilder(DESC_AMY).withId(VALID_JOB_ID_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different job title -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTitle(VALID_JOB_TITLE_BOB).build();
+        editedAmy = new EditRecordDescriptorBuilder(DESC_AMY).withTitle(VALID_JOB_TITLE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_KIV).build();
+        editedAmy = new EditRecordDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_KIV).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 }

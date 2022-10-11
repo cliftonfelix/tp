@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents Person's gender in the address book.
+ * Represents Record's gender in the address book.
  * Guarantees: immutable; is always valid
  */
 public class Gender {

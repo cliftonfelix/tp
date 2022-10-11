@@ -21,17 +21,17 @@ import seedu.address.model.person.Gender;
 import seedu.address.model.person.GraduationDate;
 import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.address.model.record.Record;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.University;
 import seedu.address.model.tag.Tag;
 
 /**
- * Jackson-friendly version of {@link Person}.
+ * Jackson-friendly version of {@link Record}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedRecord {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Record's %s field is missing!";
 
     private final String name;
     private final String phone;
@@ -47,10 +47,10 @@ class JsonAdaptedPerson {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedRecord} with the given record details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(
+    public JsonAdaptedRecord(
             @JsonProperty("name") String name,
             @JsonProperty("phone") String phone,
             @JsonProperty("email") String email,
@@ -60,7 +60,7 @@ class JsonAdaptedPerson {
             @JsonProperty("cap") String cap,
             @JsonProperty("university") String university,
             @JsonProperty("major") String major,
-                             @JsonProperty("id") String id,
+            @JsonProperty("id") String id,
             @JsonProperty("title") String title,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
@@ -80,18 +80,18 @@ class JsonAdaptedPerson {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Record} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Person source) {
-        name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
-        gender = source.getGender().value;
-        cap = source.getCap().toString();
-        graduationDate = source.getGraduationDate().value;
-        university = source.getUniversity().value;
-        major = source.getMajor().value;
+    public JsonAdaptedRecord(Record source) {
+        name = source.getPerson().getName().fullName;
+        phone = source.getPerson().getPhone().value;
+        email = source.getPerson().getEmail().value;
+        address = source.getPerson().getAddress().value;
+        gender = source.getPerson().getGender().value;
+        cap = source.getPerson().getCap().toString();
+        graduationDate = source.getPerson().getGraduationDate().value;
+        university = source.getPerson().getUniversity().value;
+        major = source.getPerson().getMajor().value;
         id = source.getJob().getId().value;
         title = source.getJob().getTitle().value;
         tagged.addAll(source.getTags().stream()
@@ -100,14 +100,14 @@ class JsonAdaptedPerson {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted record object into the model's {@code Record} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted record.
      */
-    public Person toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+    public Record toModelType() throws IllegalValueException {
+        final List<Tag> recordTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            recordTags.add(tag.toModelType());
         }
 
         if (name == null) {
@@ -198,8 +198,8 @@ class JsonAdaptedPerson {
         }
         final Title modelTitle = new Title(title);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress,
+        final Set<Tag> modelTags = new HashSet<>(recordTags);
+        return new Record(modelName, modelPhone, modelEmail, modelAddress,
                 modelGender,
                 modelGraduationDate,
                 modelCap,

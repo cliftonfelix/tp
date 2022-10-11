@@ -14,8 +14,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_MAXIMUM_CAP_VAL
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_KIV;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_UNIVERSITY_BOB;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalRecords.ALICE;
+import static seedu.address.testutil.TypicalRecords.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -26,9 +26,9 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.record.Record;
+import seedu.address.model.record.exceptions.DuplicateRecordException;
+import seedu.address.testutil.RecordBuilder;
 
 public class AddressBookTest {
 
@@ -36,7 +36,7 @@ public class AddressBookTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), addressBook.getRecordList());
     }
 
     @Test
@@ -52,76 +52,76 @@ public class AddressBookTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE)
+    public void resetData_withDuplicateRecords_throwsDuplicateRecordException() {
+        // Two records with the same identity fields
+        Record editedAlice = new RecordBuilder(ALICE)
                 .withAddress(VALID_ADDRESS_BOB)
                 .withCap(VALID_CAP_VALUE_BOB, VALID_MAXIMUM_CAP_VALUE_BOB)
                 .withGender(VALID_GENDER_BOB)
                 .withGraduationDate(VALID_GRADUATION_DATE_BOB)
                 .withUniversity(VALID_UNIVERSITY_BOB)
                 .withMajor(VALID_MAJOR_BOB)
-                .withId(VALID_JOB_ID_BOB)
-                .withTitle(VALID_JOB_TITLE_BOB)
+                .withId(ALICE.getJob().getId().toString())
+                .withTitle(ALICE.getJob().getTitle().toString())
                 .withTags(VALID_TAG_KIV)
                 .build();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPersons);
+        List<Record> newRecords = Arrays.asList(ALICE, editedAlice);
+        AddressBookStub newData = new AddressBookStub(newRecords);
 
-        assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateRecordException.class, () -> addressBook.resetData(newData));
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasPerson(null));
+    public void hasRecord_nullRecord_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.hasRecord(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+    public void hasRecord_recordNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasRecord(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+    public void hasRecord_recordInAddressBook_returnsTrue() {
+        addressBook.addRecord(ALICE);
+        assertTrue(addressBook.hasRecord(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE)
+    public void hasRecord_recordWithSameIdentityFieldsInAddressBook_returnsTrue() {
+        addressBook.addRecord(ALICE);
+        Record editedAlice = new RecordBuilder(ALICE)
                 .withAddress(VALID_ADDRESS_BOB)
                 .withCap(VALID_CAP_VALUE_BOB, VALID_MAXIMUM_CAP_VALUE_BOB)
                 .withGender(VALID_GENDER_BOB)
                 .withGraduationDate(VALID_GRADUATION_DATE_BOB)
                 .withUniversity(VALID_UNIVERSITY_BOB)
                 .withMajor(VALID_MAJOR_BOB)
-                .withId(VALID_JOB_ID_BOB)
-                .withTitle(VALID_JOB_TITLE_BOB)
+                .withId(ALICE.getJob().getId().toString())
+                .withTitle(ALICE.getJob().getTitle().toString())
                 .withTags(VALID_TAG_KIV)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(addressBook.hasRecord(editedAlice));
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+    public void getRecordList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getRecordList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyAddressBook whose records list can violate interface constraints.
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Record> records = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons) {
-            this.persons.setAll(persons);
+        AddressBookStub(Collection<Record> records) {
+            this.records.setAll(records);
         }
 
         @Override
-        public ObservableList<Person> getPersonList() {
-            return persons;
+        public ObservableList<Record> getRecordList() {
+            return records;
         }
     }
 

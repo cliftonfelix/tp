@@ -72,7 +72,7 @@ Adds an applicant to InternConnect.
 Format: `add name/NAME phone/PHONE email/EMAIL [specifier/SPECIFIER_DETAIL]`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of specifiers (including 0)
+A record can have any number of specifiers (including 0)
 </div>
 
 Specifiers:
@@ -94,9 +94,9 @@ Examples:
 * `add name/Bobby phone/91234567 email/bob@example.com job/420`
 
 
-### Listing all persons : `list`
+### Listing all records : `list`
 
-Shows a list of all persons in the address book.
+Shows a list of all records in the address book.
 
 Format: `list`
 
@@ -122,13 +122,13 @@ Format: `edit INDEX [name/NAME] [phone/PHONE] [email/EMAIL] [specifier/SPECIFIER
 * You can remove all the applicant’s tags by typing `t/` without specifying any tags after it.
 
 Examples:
-*  `edit 1 phone/91234567 email/bob@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `bob@example.com` respectively.
-*  `edit 2 name/Betty` Edits the name of the 2nd person to be `Betty`.
+*  `edit 1 phone/91234567 email/bob@example.com` Edits the phone number and email address of the 1st record to be `91234567` and `bob@example.com` respectively.
+*  `edit 2 name/Betty` Edits the name of the 2nd record to be `Betty`.
 
 
-### Locating person's fields by field: `find`
+### Locating record's fields by field: `find`
 
-Finds persons whose names contain any of the given keywords.
+Finds records whose names contain any of the given keywords.
 
 Format: `find specifier/KEYWORD [more_specifier/MORE_KEYWORDS]`
 
@@ -154,7 +154,7 @@ Deletes the specified applicant from InternConnect.
 Format: `delete INDEX`
 
 * Deletes the applicant at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* The index refers to the index number shown in the displayed record list.
 * The index **must be a positive integer** 1, 2, 3, …​ and **not exceed the total records listed**
 
 Examples:

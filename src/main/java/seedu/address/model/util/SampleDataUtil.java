@@ -15,7 +15,7 @@ import seedu.address.model.person.Gender;
 import seedu.address.model.person.GraduationDate;
 import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.address.model.record.Record;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.University;
 import seedu.address.model.tag.Tag;
@@ -24,9 +24,9 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(
+    public static Record[] getSampleRecords() {
+        return new Record[] {
+            new Record(
                     new Name("Alex Yeoh"),
                     new Phone("87438807"),
                     new Email("alexyeoh@example.com"),
@@ -39,7 +39,7 @@ public class SampleDataUtil {
                     new Id("169277"),
                     new Title("IT Software Engineer (6 months internship)"),
                     getTagSet("offered")),
-            new Person(
+            new Record(
                     new Name("Bernice Yu"),
                     new Phone("99272758"),
                     new Email("berniceyu@example.com"),
@@ -52,7 +52,7 @@ public class SampleDataUtil {
                     new Id("169277"),
                     new Title("IT Software Engineer (6 months internship)"),
                     getTagSet()),
-            new Person(
+            new Record(
                     new Name("Charlotte Oliveiro"),
                     new Phone("93210283"),
                     new Email("charlotte@example.com"),
@@ -65,7 +65,7 @@ public class SampleDataUtil {
                     new Id("165997"),
                     new Title("[Campus Recruitment] Backend Engineer Intern (Dec'23 - May'23)"),
                     getTagSet("assessment", "rejected")),
-            new Person(
+            new Record(
                     new Name("David Li"),
                     new Phone("91031282"),
                     new Email("lidavid@example.com"),
@@ -78,7 +78,7 @@ public class SampleDataUtil {
                     new Id("169277"),
                     new Title("IT Software Engineer (6 months internship)"),
                     getTagSet("KIV")),
-            new Person(
+            new Record(
                     new Name("Irfan Ibrahim"),
                     new Phone("92492021"),
                     new Email("irfan@example.com"),
@@ -91,7 +91,7 @@ public class SampleDataUtil {
                     new Id("183698"),
                     new Title("Data Scientist Intern"),
                     getTagSet("final interview", "rejected")),
-            new Person(
+            new Record(
                     new Name("Roy Balakrishnan"),
                     new Phone("92624417"),
                     new Email("royb@example.com"),
@@ -109,8 +109,8 @@ public class SampleDataUtil {
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+        for (Record sampleRecord : getSampleRecords()) {
+            sampleAb.addRecord(sampleRecord);
         }
         return sampleAb;
     }

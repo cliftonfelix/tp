@@ -1,19 +1,19 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CAP;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADUATION_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON_CAP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON_GRADUATION_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOB_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOB_TITLE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MAJOR;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON_MAJOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_UNIVERSITY;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON_UNIVERSITY;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECORDS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -35,100 +35,100 @@ import seedu.address.model.person.Gender;
 import seedu.address.model.person.GraduationDate;
 import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.address.model.record.Record;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.University;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing record in the address book.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the record identified "
+            + "by the index number used in the displayed record list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_GENDER + "GENDER] "
-            + "[" + PREFIX_GRADUATION_DATE + "GRADUATION DATE] "
-            + "[" + PREFIX_CAP + "CAP] "
-            + "[" + PREFIX_UNIVERSITY + "UNIVERSITY] "
-            + "[" + PREFIX_MAJOR + "MAJOR] "
+            + "[" + PREFIX_PERSON_NAME + "NAME] "
+            + "[" + PREFIX_PERSON_PHONE + "PHONE] "
+            + "[" + PREFIX_PERSON_EMAIL + "EMAIL] "
+            + "[" + PREFIX_PERSON_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_PERSON_GENDER + "GENDER] "
+            + "[" + PREFIX_PERSON_GRADUATION_DATE + "GRADUATION DATE] "
+            + "[" + PREFIX_PERSON_CAP + "CAP] "
+            + "[" + PREFIX_PERSON_UNIVERSITY + "UNIVERSITY] "
+            + "[" + PREFIX_PERSON_MAJOR + "MAJOR] "
             + "[" + PREFIX_JOB_ID + "ID] "
             + "[" + PREFIX_JOB_TITLE + "TITLE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_PERSON_PHONE + "91234567 "
+            + PREFIX_PERSON_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_RECORD_SUCCESS = "Edited Record: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_RECORD = "This record already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditRecordDescriptor editRecordDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param index of the record in the filtered record list to edit
+     * @param editRecordDescriptor details to edit the record with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditRecordDescriptor editRecordDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editRecordDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editRecordDescriptor = new EditRecordDescriptor(editRecordDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Record> lastShownList = model.getFilteredRecordList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_RECORD_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Record recordToEdit = lastShownList.get(index.getZeroBased());
+        Record editedRecord = createEditedRecord(recordToEdit, editRecordDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (!recordToEdit.isSameRecord(editedRecord) && model.hasRecord(editedRecord)) {
+            throw new CommandException(MESSAGE_DUPLICATE_RECORD);
         }
 
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        model.setRecord(recordToEdit, editedRecord);
+        model.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORDS);
+        return new CommandResult(String.format(MESSAGE_EDIT_RECORD_SUCCESS, editedRecord));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Record} with the details of {@code recordToEdit}
+     * edited with {@code editRecordDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+    private static Record createEditedRecord(Record recordToEdit, EditRecordDescriptor editRecordDescriptor) {
+        assert recordToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Gender updatedGender = editPersonDescriptor.getGender().orElse(personToEdit.getGender());
-        Cap updatedCap = editPersonDescriptor.getCap().orElse(personToEdit.getCap());
-        GraduationDate updatedGraduationDate = editPersonDescriptor.getGraduationDate()
-                .orElse(personToEdit.getGraduationDate());
-        University updatedUniversity = editPersonDescriptor.getUniversity().orElse(personToEdit.getUniversity());
-        Major updatedMajor = editPersonDescriptor.getMajor().orElse(personToEdit.getMajor());
-        Id updatedJobId = editPersonDescriptor.getJobId().orElse(personToEdit.getJob().getId());
-        Title updatedJobTitle = editPersonDescriptor.getJobTitle().orElse(personToEdit.getJob().getTitle());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Name updatedName = editRecordDescriptor.getName().orElse(recordToEdit.getPerson().getName());
+        Phone updatedPhone = editRecordDescriptor.getPhone().orElse(recordToEdit.getPerson().getPhone());
+        Email updatedEmail = editRecordDescriptor.getEmail().orElse(recordToEdit.getPerson().getEmail());
+        Address updatedAddress = editRecordDescriptor.getAddress().orElse(recordToEdit.getPerson().getAddress());
+        Gender updatedGender = editRecordDescriptor.getGender().orElse(recordToEdit.getPerson().getGender());
+        Cap updatedCap = editRecordDescriptor.getCap().orElse(recordToEdit.getPerson().getCap());
+        GraduationDate updatedGraduationDate = editRecordDescriptor.getGraduationDate()
+                .orElse(recordToEdit.getPerson().getGraduationDate());
+        University updatedUniversity = editRecordDescriptor.getUniversity().orElse(recordToEdit.getPerson().getUniversity());
+        Major updatedMajor = editRecordDescriptor.getMajor().orElse(recordToEdit.getPerson().getMajor());
+        Id updatedJobId = editRecordDescriptor.getJobId().orElse(recordToEdit.getJob().getId());
+        Title updatedJobTitle = editRecordDescriptor.getJobTitle().orElse(recordToEdit.getJob().getTitle());
+        Set<Tag> updatedTags = editRecordDescriptor.getTags().orElse(recordToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail,
+        return new Record(updatedName, updatedPhone, updatedEmail,
                 updatedAddress,
                 updatedGender,
                 updatedGraduationDate,
@@ -155,14 +155,14 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editRecordDescriptor.equals(e.editRecordDescriptor);
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the record with. Each non-empty field value will replace the
+     * corresponding field value of the record.
      */
-    public static class EditPersonDescriptor {
+    public static class EditRecordDescriptor {
         private Name name;
         private Phone phone;
         private Email email;
@@ -176,13 +176,13 @@ public class EditCommand extends Command {
         private Title title;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditRecordDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditRecordDescriptor(EditRecordDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
@@ -324,12 +324,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditRecordDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditRecordDescriptor e = (EditRecordDescriptor) other;
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())

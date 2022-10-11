@@ -4,13 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_JOB_ID_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_JOB_TITLE_BOB;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalRecords.ALICE;
+import static seedu.address.testutil.TypicalRecords.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.record.Record;
+import seedu.address.testutil.RecordBuilder;
 
 public class JobTest {
 
@@ -23,17 +23,17 @@ public class JobTest {
         assertFalse(ALICE.getJob().isSameJob(null));
 
         // same job ID, different job title -> returns true
-        Person editedAlice = new PersonBuilder(ALICE).withTitle(VALID_JOB_TITLE_BOB).build();
+        Record editedAlice = new RecordBuilder(ALICE).withTitle(VALID_JOB_TITLE_BOB).build();
         Job editedAliceJob = editedAlice.getJob();
         assertTrue(ALICE.getJob().isSameJob(editedAliceJob));
 
         // different job ID, same job title -> returns false
-        editedAlice = new PersonBuilder(ALICE).withId(VALID_JOB_ID_BOB).build();
+        editedAlice = new RecordBuilder(ALICE).withId(VALID_JOB_ID_BOB).build();
         editedAliceJob = editedAlice.getJob();
         assertFalse(ALICE.getJob().isSameJob(editedAliceJob));
 
         // job ID differs in case, same job title -> returns false
-        Person editedBob = new PersonBuilder(BOB).withId(VALID_JOB_ID_BOB.toLowerCase()).build();
+        Record editedBob = new RecordBuilder(BOB).withId(VALID_JOB_ID_BOB.toLowerCase()).build();
         Job editedBobJob = editedBob.getJob();
         assertFalse(BOB.getJob().isSameJob(editedBobJob));
     }
@@ -41,7 +41,7 @@ public class JobTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Person aliceCopy = new PersonBuilder(ALICE).build();
+        Record aliceCopy = new RecordBuilder(ALICE).build();
         assertTrue(ALICE.getJob().equals(aliceCopy.getJob()));
 
         // same object -> returns true
@@ -57,11 +57,11 @@ public class JobTest {
         assertFalse(ALICE.getJob().equals(BOB.getJob()));
 
         // different job ID -> returns false
-        Person editedAlice = new PersonBuilder(ALICE).withId(VALID_JOB_ID_BOB).build();
+        Record editedAlice = new RecordBuilder(ALICE).withId(VALID_JOB_ID_BOB).build();
         assertFalse(ALICE.getJob().equals(editedAlice.getJob()));
 
         // different job title -> returns false
-        editedAlice = new PersonBuilder(ALICE).withTitle(VALID_JOB_TITLE_BOB).build();
+        editedAlice = new RecordBuilder(ALICE).withTitle(VALID_JOB_TITLE_BOB).build();
         assertFalse(ALICE.getJob().equals(editedAlice.getJob()));
     }
 }

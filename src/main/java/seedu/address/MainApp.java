@@ -50,22 +50,32 @@ public class MainApp extends Application {
     public void init() throws Exception {
         logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
+        System.out.println(1);
 
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
+        System.out.println(1);
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
+        System.out.println(1);
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
+        System.out.println(1);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+        System.out.println(1);
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        System.out.println(1);
 
         initLogging(config);
+        System.out.println(1);
 
         model = initModelManager(storage, userPrefs);
+        System.out.println(1);
 
         logic = new LogicManager(model, storage);
+        System.out.println(1);
 
         ui = new UiManager(logic);
+        System.out.println(1);
     }
 
     /**
