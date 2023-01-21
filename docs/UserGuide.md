@@ -7,7 +7,7 @@ InternConnect is a **desktop app for managing internship applicants, optimized f
 
 This one-stop, convenient, and efficient platform empowers Internship Campus Recruiters to work with their applicants’ data. Say goodbye to opening multiple windows to retrieve the information you need and focus on what matters more: matching the right people for the right job.
 
-# Table of Contents
+## Table of Contents
 
 1. [Quick Start](#1-quick-start)
 2. [Fields](#2-fields)
@@ -31,7 +31,7 @@ This one-stop, convenient, and efficient platform empowers Internship Campus Rec
    14. [Editing the data file](#314-editing-the-data-file)
 4. [Command Summary](#4-command-summary)
 
---------------------------------------------------------------------------------------------------------------------
+
 <div style="page-break-after: always;"></div>
 
 ## 1. Quick start
@@ -109,8 +109,8 @@ which contains `workday-nus`, `edu`, and `sg` as `DOMAIN_LABEL` separated by `.`
 | **Major**           | `m`       | 50           | Can only contain alphanumeric characters and spaces                                    |
 | **Job Title**       | `jt`      | 100          | Can only contain alphanumeric characters, `SPECIAL_PUNCTUATIONS` and spaces            |
 
-* `CURRENT_CAP` must be a positive value (more than `0.0`)
 * `CURRENT_CAP` value must be smaller than or equal to `MAX_CAP`
+* `MAX_CAP` and `CURRENT_CAP` must be a positive value (more than `0.0`)
 * `MAX_CAP` and `CURRENT_CAP` values should not exceed `100.0`
 * `MAX_CAP` and `CURRENT_CAP` will be rounded to 2 decimal places, e.g. `3.99999` will be rounded to `4.00`
 * `SPECIAL_PUNCTUATIONS` include `-` `#` `,` `:` `&` `(` `)` `"` `'` `/` `[` `]`
@@ -137,7 +137,7 @@ which contains `workday-nus`, `edu`, and `sg` as `DOMAIN_LABEL` separated by `.`
   e.g., in `add n/NAME`, `NAME` is a parameter which can be used as `add n/Bobby Doe`.
 
 * Items with `...` after them can be used multiple times including zero times.
-  e.g. `[t/TAG]...` can be used as ` ` (i.e. 0 times), `t/KIV`, `t/KIV t/offered` etc.
+  e.g. `[t/TAG]...` can be used as nothing (i.e. 0 times), `t/KIV`, `t/KIV t/offered` etc.
 
 * Curly brackets represent a set of at least 1 parameter, and each of them is mandatory.
   e.g., `{mandatory_field_parameter/FIELD_DETAIL}`, all fields that belong to mandatory fields must be listed.
@@ -198,7 +198,7 @@ Format: `view INDEX`
 
 * Views the applicant at the specified `INDEX`.
 * The index refers to the index number shown in the displayed applicants list.
-* The index **must be a positive integer** 1, 2, 3, ... and **not exceed the total records listed**
+* The index **must be a positive integer** 1, 2, 3, ... and not exceed the total records listed.
 
 <div style="page-break-after: always;"></div>
 
@@ -211,7 +211,7 @@ Format: `edit INDEX parameter/NEW_PARAMETER_DETAIL [parameter/NEW_PARAMETER_DETA
 * For `parameter` arguments, please refer to the `parameter` of each field in the [Fields](#2-fields) section above.
 * Edits the applicant at the specified `INDEX`.
 * The index refers to the index number shown in the displayed applicants list.
-* The index **must be a positive integer** 1, 2, 3, ... and **not exceed the total records listed**.
+* The index **must be a positive integer** 1, 2, 3, ... and not exceed the total records listed.
 * At least one of the parameter fields must be provided.
 * Existing values will be updated to the input values.
 * When modifying tags, the existing tags of the applicant will be removed i.e. adding of tags is not cumulative.
@@ -230,7 +230,7 @@ Format: `delete INDEX`
 
 * Deletes the applicant at the specified `INDEX`.
 * The index refers to the index number shown in the displayed applicants list.
-* The index **must be a positive integer** 1, 2, 3, ... and **not exceed the total records listed**
+* The index **must be a positive integer** 1, 2, 3, ... and not exceed the total records listed.
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd applicant in the address book.
@@ -255,7 +255,7 @@ Format: `find parameter/KEYWORD [parameter/KEYWORD]...`
 Search Types:
 1. Matching word: Keywords will only match if there is a full matching word. E.g., `Bobby` will not match `Bobbys`.
 2. Substring: Keywords will match as long as a substring match exists. E.g., `@gmail.com` will match `jason@gmail.com` and `CS2103@gmail.com`
-3. Numeric: Search will search by its numeric value, rounded to 2 decimal places. E.g., Both `3` and `3.00000001` will match `3.00`
+3. Numeric: Keywords will match by its numeric value, rounded to 2 decimal places. E.g., Both `3` and `3.00000001` will match `3.00`
 
 | Field               | Search Type               |
 |---------------------|---------------------------|
@@ -271,13 +271,13 @@ Search Types:
 | **Job ID**          | Substring                 |
 | **Job Title**       | Matching word             |
 | **Tag**             | Matching word             |
+
 Examples:
 * `find n/Bobby` Returns applicants with names matching `bobby` and `Bobby Cortez`
 * `find g/Female c/3.5 2` returns female applicants with a CAP value of `3.5` or `2.0`
 * `find g/Male t/offered KIV` returns male applicants who have an `offered` or `KIV` tag attached to them
 * `find g/Male e/gmail` returns male applicants who have a `gmail` substring in their email address
 
-<div style="page-break-after: always;"></div>
 
 ### 3.8 Importing applicants from an external JSON file: `import`
 
@@ -293,6 +293,8 @@ Format: `import FILE_PATH`
 Examples:
 * `import nus_students.json` Imports applicants listed in the `nus_students.json` file
 
+
+<div style="page-break-after: always;"></div>
 
 ### 3.9 Exporting displayed list: `export`
 
@@ -331,15 +333,20 @@ Clears all entries from the address book.
 Format: `clear`
 
 
+<div style="page-break-after: always;"></div>
+
+
 ### 3.12 Exiting the program: `exit`
 
 Exits the program.
 
 Format: `exit`
 
+
 ### 3.13 Saving the data
 
 InternConnect data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
 
 ### 3.14 Editing the data file
 
@@ -350,8 +357,9 @@ InternConnect data are saved in the hard disk automatically after any command th
 If your changes to the data file makes its format invalid, InternConnect will discard all data and start with an empty data file at the next run.
 </div>
 
------------------------------------------------------------------------------------------------------
+
 <div style="page-break-after: always;"></div>
+
 
 ## 4. Command summary
 

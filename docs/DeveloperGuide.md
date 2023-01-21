@@ -3,7 +3,7 @@ layout: page
 title: Developer Guide
 ---
 
-# Table of Contents
+## Table of Contents
 1. [Acknowledgements](#1-acknowledgements)
 2. [Setting up, getting started](#2-setting-up-getting-started)
 3. [Design](#3-design)
@@ -33,25 +33,26 @@ title: Developer Guide
    4. [Editing an applicant](#74-editing-an-applicant)
    5. [Deleting an applicant](#75-deleting-an-applicant)
    6. [Locating applicants by field](#76-locating-applicants-by-field)
-   7. [Importing applicants from an external text file](#77-importing-applicants-from-an-external-json-file)
-   8. [Exporting displayed list](#78-exporting-displayed-list-to-a-json-file)
+   7. [Importing applicants from an external JSON file](#77-importing-applicants-from-an-external-json-file)
+   8. [Exporting displayed list to a JSON file](#78-exporting-displayed-list-to-a-json-file)
    9. [Checkout a new or existing list](#79-checkout-a-new-or-existing-list)
-   10. [Saving data](#710-saving-data)
 
---------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
+
 
 ## 1. Acknowledgements
 
 * Code base: [addressbook-level3](https://github.com/se-edu/addressbook-level3)
 
---------------------------------------------------------------------------------------------------------------------
 
 ## 2. Setting up, getting started
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
---------------------------------------------------------------------------------------------------------------------
+
 <div style="page-break-after: always;"></div>
+
 
 ## 3. Design
 
@@ -151,6 +152,8 @@ The Sequence Diagram below illustrates the interactions within the `Logic` compo
 should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
 
+<div style="page-break-after: always;"></div>
+
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
 <img src="images/ParserClasses.png" width="600"/>
@@ -226,6 +229,10 @@ default list.
 
 ![CheckoutState0](images/CheckoutState0.png)
 
+
+<div style="page-break-after: always;"></div>
+
+
 Step 2. The user executes `checkout june-2022` command to load the JSON `june-2022.json` to the storage.
 The `checkout` command calls `CheckoutCommandParser#parse()`, which checks if the user input is valid, which in turn
 calls `CheckoutCommand#execute()` if it is valid. If the list does not exist in the `data` folder, the list be created
@@ -241,6 +248,10 @@ and populated with sample data. `Model` and `Storage` are then loaded with the s
 `CommandResult` to `Logic`.
 
 ![CheckoutState2](images/CheckoutState2.png)
+
+
+<div style="page-break-after: always;"></div>
+
 
 The following sequence diagram shows how the checkout operation works:
 
@@ -304,20 +315,24 @@ The following sequence diagram shows how the `view` command works:
 
 ![ViewSequenceDiagram](images/ViewSequenceDiagram.png)
 
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `ViewCommandParser`
+should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
+
 <div style="page-break-after: always;"></div>
 
 #### Design considerations
 
 **Aspect: How the UI window is split to show a panel of list of all applicants and another panel to view details of an applicant:**
 
-![guiDesignConsideration1](images/guiDesignConsideration1.png)
 - **Alternative 1 (current implementation):** Window is split into half below the result display box.
     - Pros: Symmetrical and looks more regular.
     - Cons: Pane to view details of an applicant is smaller.
-![guiDesignConsideration2](images/guiDesignConsideration2.png)
+![guiDesignConsideration1](images/guiDesignConsideration1.png)
 - **Alternative 2:** Window is split from the top, so both command box and result display box are halved.
     - Pros: Can have a larger pane to view details of an applicant.
     - Cons: Need to scroll more to see typed command and result displayed.
+![guiDesignConsideration2](images/guiDesignConsideration2.png)
 
 
 ### 4.3 Import Feature
@@ -342,6 +357,10 @@ Given below is an example success scenario and how the `import` mechanism behave
 The following sequence diagram shows how the `import` command works:
 
 ![ImportSequenceDiagram](images/ImportSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `ImportCommandParser`
+should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
 
 <div style="page-break-after: always;"></div>
 
@@ -407,6 +426,9 @@ The following sequence diagram shows how the `export` command works:
           in JSON format or not a valid file path or file already exists etc.
         * Quite messy since the users can specify a completely different file path/directory everytime they
           execute `export` command.
+
+<div style="page-break-after: always;"></div>
+
 * **Alternative 3**: We save the files in the `data/export/` folder and user specifies only the file name.
     * Pros:
         * Location for all exported JSON files is in a single folder.
@@ -440,9 +462,17 @@ Given below is an example success scenario and how the `find` mechanism behaves 
 6. `FindCommand` combines the list of predicates into a single predicate, and calls `Model#updateFilteredPersonList(predicate)`.
 7. `FindCommand` updates the `displayedList` from `model` to display only the Applicants that match the predicate.
 
+
+<div style="page-break-after: always;"></div>
+
+
 The following sequence diagram shows how the `find` command works:
 
 ![FindSequenceDiagram](images/FindSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FindCommandParser`
+should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
 
 #### Design Considerations
 
@@ -487,10 +517,11 @@ The following sequence diagram shows how the `find` command works:
         * Intuitive and easy for Users to use
         * Less syntax and user input required in comparison to _alternative 2_
     * Cons:
-        * Limits User's freedom in how they want to search
         * Search type for the field may not be how the User wants to search
 
---------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
+
 
 ## 5. Documentation, logging, testing, configuration, dev-ops
 
@@ -500,7 +531,9 @@ The following sequence diagram shows how the `find` command works:
 * [Configuration guide](Configuration.md)
 * [DevOps guide](DevOps.md)
 
---------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
+
 
 ## 6. Appendix A: Requirements
 
@@ -521,8 +554,6 @@ a one-stop, convenient, and efficient platform to manage and empower
 how internship campus recruiters work with their applicants’ data.
 Say goodbye to opening multiple windows to retrieve the information you need and
 focus on what matters more: matching the right people for the right job.
-
-<div style="page-break-after: always;"></div>
 
 ### 6.2 User stories
 
@@ -545,6 +576,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | user                              | have multiple lists of applicant and checkout between them                     | work with different sets of data                                                                             |
 | `*`      | user                              | give customised tag to applicants                                              | label them accordingly                                                                                       |
 | `*`      | user                              | close the app                                                                  |                                                                                                              |
+
+
+<div style="page-break-after: always;"></div>
 
 
 ### 6.3 Use cases
@@ -581,22 +615,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1b. The specified applicant is a duplicate to another applicant in the list.
 
-    * 1a1. InternConnect shows an error message.
+    * 1b1. InternConnect shows an error message.
 
       Use case ends.
 
 * 1c. The specified applicant has an invalid data value.
 
-    * 1a1. InternConnect shows an error message.
+    * 1c1. InternConnect shows an error message.
 
       Use case ends.
+
+
+<div style="page-break-after: always;"></div>
 
 
 **Use case: UC03 - Edit an applicant**
 
 **MSS**
 
-1.  User requests to <u>list all applicants (UC01)</u>
+1.  User requests to <u>list all applicants (UC01)</u> or <u>find applicants by field (UC06)</u>
 2.  User requests to modify an applicant at a certain index with its parameters
 3.  InternConnect modifies the applicant
 4.  InternConnect shows the updated applicant
@@ -640,11 +677,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case ends.
 
 
+<div style="page-break-after: always;"></div>
+
+
 **Use case: UC04 - Delete an applicant**
 
 **MSS**
 
-1.  User requests to <u>list all applicants (UC01)</u>
+1.  User requests to <u>list all applicants (UC01)</u> or <u>find applicants by field (UC06)</u>
 2.  User requests to delete an applicant at a certain index in the list
 3.  InternConnect deletes the applicant
 4.  InternConnect shows the updated list of applicants
@@ -665,7 +705,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   
 * 2b. The given index is not a positive integer or is out of bounds.
 
-    * 2a1. InternConnect shows an error message.
+    * 2b1. InternConnect shows an error message.
 
       Use case ends.
 
@@ -674,7 +714,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to <u>list all applicants (UC01)</u>
+1.  User requests to <u>list all applicants (UC01)</u> or <u>find applicants by field (UC06)</u>
 2.  User requests to view an applicant at a certain index in the list
 3.  InternConnect shows the detailed data of the applicant
 
@@ -691,10 +731,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2a1. InternConnect shows an error message.
 
       Use case ends.
+  
+
+<div style="page-break-after: always;"></div>
 
 * 2b. The given index is not a positive integer or is out of bounds.
 
-    * 2a1. InternConnect shows an error message.
+    * 2b1. InternConnect shows an error message.
 
       Use case ends.
 
@@ -746,6 +789,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
+<div style="page-break-after: always;"></div>
+
 * 1b. The given file name does not exist, is invalid or is not a file in JSON format.
 
     * 1b1. InternConnect shows an error message.
@@ -795,10 +840,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes from step 2.
 
+<div style="page-break-after: always;"></div>
+
+
 * 1c. The given file has invalid value, incorrect format, and/or duplicate applicants.
 
     * 1c1. InternConnect wipes all data from the file.
-    * 1b2. InternConnect fills the data with an empty data.
+    * 1c2. InternConnect fills the data with an empty data.
 
       Use case resumes from step 2.
 
@@ -838,8 +886,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 10. The data should be stored locally and should be in a human editable text file.
 11. The GUI should work well (i.e., should not cause any resolution-related inconveniences to the user) for
     standard screen resolutions 1920x1080 and higher, and for screen scales 100% and 125%. 
-
-    In addition, the GUI should be usable (i.e., all functions can be used even if the user experience is not optimal) for
+12. In addition, the GUI should be usable (i.e., all functions can be used even if the user experience is not optimal) for
     resolutions 1280x720 and higher, and for screen scales 150%.
 
 ### 6.5 Glossary
@@ -852,7 +899,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Main Success Scenario (MSS)**: Describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong
 
 
---------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
+
 
 ## 7. Appendix B: Instructions for manual testing
 
@@ -885,7 +933,7 @@ point for testers to work on; testers are expected to do more exploratory testin
 
    1. Prerequisites: No applicant with the email `johnd@example.com`
 
-   2. Test case: `add add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 c/3.50/4.00 g/male
+   2. Test case: `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 c/3.50/4.00 g/male
       u/Nanyang Polytechnic gd/05-2024 m/Computer Science ji/J12300 jt/Software Engineer Intern t/rejected t/KIV`<br>
       Expected: An applicant named John Doe is added. Details of the added applicant shown in the view panel. Success
       message shown in the status message.
@@ -894,7 +942,7 @@ point for testers to work on; testers are expected to do more exploratory testin
 
    1. Prerequisites: There exists an applicant with email `johndoe@example.com` and jobID `J12300`
 
-   2. Test case: `add add n/John Doe p/98765432 e/johndoe@example.com a/311, Clementi Ave 2, #02-25 c/3.50/4.00 g/male
+   2. Test case: `add n/John Doe p/98765432 e/johndoe@example.com a/311, Clementi Ave 2, #02-25 c/3.50/4.00 g/male
       u/Nanyang Polytechnic gd/05-2024 m/Computer Science ji/J12300 jt/Software Engineer Intern t/rejected t/KIV`<br>
       Expected: No applicant is added. Error details shown in the status message.
 
@@ -902,7 +950,7 @@ point for testers to work on; testers are expected to do more exploratory testin
 
     1. Prerequisites: None
 
-    2. Test case: `add add n/John Doe`<br>
+    2. Test case: `add n/John Doe`<br>
        Expected: No applicant is added. Error details shown in the status message.
 
 4. Other incorrect `add` commands to try: `add`, `add 1`<br>
@@ -915,25 +963,28 @@ point for testers to work on; testers are expected to do more exploratory testin
 
    1. Prerequisites: The displayed list contains at least one applicant
 
-   2. Test case: `view 1`
+   2. Test case: `view 1`<br>
       Expected: Details of the first applicant in the list shown in the view panel. Success message shown in the status message.
 
 2. Viewing an empty displayed list
 
     1. Prerequisites: The displayed list is empty
 
-    2. Test case: `view 1`
+    2. Test case: `view 1`<br>
        Expected: No applicant is viewed. Error details shown in the status message.
 
 3. Viewing a non-positive index
 
     1. Prerequisites: List all applicants using the list command. Multiple applicants in the list.
 
-    2. Test case: `view 0`
+    2. Test case: `view 0`<br>
        Expected: No applicant is viewed. Error details shown in the status message.
 
 4. Other incorrect `view` commands to try: `view`, `view john`, `view x`(where `x` is larger than the list size)<br>
    Expected: No applicant is viewed. Error details shown in the status message.
+
+
+<div style="page-break-after: always;"></div>
 
 
 ### 7.4 Editing an applicant
@@ -972,6 +1023,7 @@ point for testers to work on; testers are expected to do more exploratory testin
 3. Other incorrect `delete` commands to try: `delete`, `delete john`, `delete x`(where `x` is larger than the list size)<br>
    Expected: No applicant is deleted. Error details shown in the status message.
 
+<div style="page-break-after: always;"></div>
 
 ### 7.6 Locating applicants by field
 
@@ -991,7 +1043,7 @@ point for testers to work on; testers are expected to do more exploratory testin
 
    1. Prerequisites: There is an empty list of applicants in InternConnect
 
-   2. Test case: `find specifer/SPECIFER_KEYWORD` <br>
+   2. Test case: `find n/Bobby` <br>
       Expected: No applicants will be listed in the left display panel. `0 persons listed!` shown in the status message.
 
 
@@ -1030,11 +1082,11 @@ point for testers to work on; testers are expected to do more exploratory testin
 
 1. Exporting empty displayed list
 
-   1. Test case: `find g/nonbinary` followed by `export`
+   1. Test case: `find g/nonbinary` followed by `export`<br>
       Expected: JSON file created in `data/export/` folder with a key-value pair where the key is
       **"persons"** and value is an empty array. Success message shown in the status message.
 
-   2. Test case: `find g/nonbinary` followed by `export 1`
+   2. Test case: `find g/nonbinary` followed by `export 1`<br>
       Expected: JSON file created in `data/export/` folder with a key-value pair where the key is
       **"persons"** and value is an empty array. Success message shown in the status message.
 
@@ -1042,13 +1094,16 @@ point for testers to work on; testers are expected to do more exploratory testin
 
    1. Prerequisite: currently displayed list is not empty
 
-   2. Test case: `export`
+   2. Test case: `export`<br>
       Expected: JSON file created in `data/export/` folder with a key-value pair where the key is
       **"persons"** and value is a non-empty array. Success message shown in the status message.
 
-   3. Test case: `export a`
+   3. Test case: `export a`<br>
       Expected: JSON file created in `data/export/` folder with a key-value pair where the key is
       **"persons"** and value is a non-empty array. Success message shown in the status message.
+
+
+<div style="page-break-after: always;"></div>
 
 
 ### 7.9 Checkout a new or existing list
@@ -1057,7 +1112,7 @@ point for testers to work on; testers are expected to do more exploratory testin
 
    1. Prerequisites: One JSON file with valid data and valid format in `data/` folder.
 
-   2. Test case: `checkout FILE_NAME`
+   2. Test case: `checkout FILE_NAME`<br>
       Expected: The data in the file `FILE_NAME.json` located at `data/` folder is loaded into the application. Success 
       message shown in the status message.
 
@@ -1065,7 +1120,7 @@ point for testers to work on; testers are expected to do more exploratory testin
 
    1. Prerequisites: No file with the name `FILE_NAME` in `data/` folder.
 
-   2. Test case: `checkout FILE_NAME`
+   2. Test case: `checkout FILE_NAME`<br>
       Expected: The file `FILE_NAME.json` is created at `data/` folder and its sample data is loaded into the 
       application. Success message shown in the status message.
 
@@ -1073,14 +1128,6 @@ point for testers to work on; testers are expected to do more exploratory testin
 
    1. Prerequisites: One JSON file with invalid data or invalid format in `data/` folder.
 
-   2. Test case: `checkout FILE_NAME`
+   2. Test case: `checkout FILE_NAME`<br>
       Expected: The data in the file `FILE_NAME.json` located at `data/` folder is wiped. The application will not 
       contain any applicants. Success message shown in the status message.
-
-
-### 7.10 Saving data
-
-1. Dealing with missing/corrupted data files
-
-   1. If the data is missing/corrupted, InternConnect will start with an empty data file, replacing the corrupted data
-      with an empty one.
